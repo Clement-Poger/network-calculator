@@ -1,40 +1,43 @@
 const translations = {
-  uk: {
-    "brand-home": "На головну — Subnet Studio",
-    "language-label": "Мова",
-    "breadcrumb-parent": "Ваша мережа",
-    "breadcrumb-current": "Калькулятор",
-    eyebrow: "ТРОХИ ЯСНОСТІ ДЛЯ ВАШОЇ МЕРЕЖІ",
-    title: 'Розберіться зі своєю <span>підмережею.</span>',
-    intro: "Введіть IPv4-адресу та маску підмережі. Ми визначимо адресу мережі, broadcast і діапазон доступних адрес вузлів.",
-    "section-kicker": "ПАРАМЕТРИ ПІДМЕРЕЖІ",
-    "form-title": "Почніть з адреси",
-    "ip-label": "IPv4-адреса",
-    "ip-hint": "Адреса, за якою потрібно виконати розрахунок.",
-    "mask-label": "Маска підмережі",
-    "mask-hint": "Введіть маску у десятковому форматі або префікс (0–32).",
-    calculate: "Обчислити підмережу",
-    example: "Спробувати приклад",
-    "results-kicker": "ВАША МЕРЕЖА НА КАРТІ",
-    "results-title": 'Ось ваша підмережа<span class="heading-period">.</span>',
-    network: "Адреса мережі",
-    "network-note": "Ідентифікатор підмережі",
-    broadcast: "Broadcast-адреса",
-    "broadcast-note": "Надсилає дані всім вузлам підмережі",
-    "host-min": "Перша доступна адреса вузла",
-    "host-min-note": "Початок діапазону вузлів",
-    "host-max": "Остання доступна адреса вузла",
-    "host-max-note": "Кінець діапазону вузлів",
-    "host-count": "Доступні адреси вузлів",
-    "host-count-note": "Адреси для призначення, включно з введеною IP",
-    footnote: "У /31 обидві адреси доступні для з’єднання точка-точка. Підмережа /32 містить одну адресу.",
-    footer: "Невеликий інструмент для кращого розуміння мереж.",
-    "theme-dark": "Темна тема",
-    "theme-light": "Світла тема",
-    "error-address": "Введіть коректну IPv4-адресу, наприклад 192.168.1.10.",
-    "error-mask": "Введіть коректну суміжну маску підмережі або префікс від 0 до 32."
+  en: {
+    "brand-home": "Network Calculator home",
+    "language-label": "Language",
+    "breadcrumb-parent": "Your network",
+    "breadcrumb-current": "Calculator",
+    eyebrow: "A LITTLE CLARITY FOR YOUR NETWORK",
+    title: 'Make sense of your <span>subnet.</span>',
+    intro: "Enter an IPv4 address and subnet mask to find the network address, broadcast address and usable host range.",
+    "section-kicker": "YOUR SUBNET DETAILS",
+    "form-title": "Start with an address",
+    "ip-label": "IPv4 address",
+    "ip-hint": "The address you want to calculate from.",
+    "mask-label": "Subnet mask",
+    "mask-hint": "Enter a dotted mask or prefix length (0–32).",
+    calculate: "Calculate subnet",
+    example: "Use example",
+    "results-kicker": "YOUR NETWORK, MAPPED OUT",
+    "results-title": 'Here’s your subnet<span class="heading-period">.</span>',
+    network: "Network address",
+    "network-note": "The subnet identifier",
+    broadcast: "Broadcast address",
+    "broadcast-note": "Reaches every host in the subnet",
+    "host-min": "First usable host",
+    "host-min-note": "Host range begins",
+    "host-max": "Last usable host",
+    "host-max-note": "Host range ends",
+    "host-count": "Usable host addresses",
+    "host-count-note": "Assignable addresses, including the entered IP",
+    footnote: "For /31, both addresses are usable on point-to-point links. A /32 contains one address.",
+    footer: "Small tool, clearer networks.",
+    "theme-dark": "Dark mode",
+    "theme-light": "Light mode",
+    "error-address": "Enter a valid IPv4 address, for example 192.168.1.10.",
+    "error-mask": "Enter a valid contiguous subnet mask or a prefix from 0 to 32.",
+    "error-generic": "Unable to calculate this subnet. Check the address and mask."
   },
   fr: {
+    "brand-home": "Accueil — Network Calculator",
+    "language-label": "Langue",
     "breadcrumb-parent": "Votre réseau",
     "breadcrumb-current": "Calculateur",
     eyebrow: "UN PEU DE CLARTÉ POUR VOTRE RÉSEAU",
@@ -79,9 +82,9 @@ const themeToggle = document.getElementById("theme-toggle");
 const themeLabel = document.getElementById("theme-label");
 const themeIcon = document.querySelector(".theme-icon");
 const languageNavigation = document.getElementById("language-navigation");
-let language = readPreference("subnet-studio-language", "uk");
+let language = readPreference("network-calculator-language", readPreference("subnet-studio-language", "en"));
 let theme = readPreference("subnet-studio-theme", getPreferredTheme());
-if (!translations[language]) language = "uk";
+if (language === "uk" || !translations[language]) language = "en";
 if (theme !== "light" && theme !== "dark") theme = getPreferredTheme();
 
 function readPreference(key, fallback) {
@@ -101,8 +104,8 @@ function savePreference(key, value) {
 }
 
 function applyLanguage() {
-  root.lang = language === "uk" ? "uk" : "fr";
-  document.title = language === "uk" ? "Subnet Studio — калькулятор IPv4" : "Subnet Studio — calculateur IPv4";
+  root.lang = language === "en" ? "en-GB" : "fr";
+  document.title = language === "en" ? "Network Calculator — IPv4 subnet calculator" : "Network Calculator — calculateur de sous-réseau IPv4";
   languageNavigation.setAttribute("aria-label", translations[language]["language-label"]);
   document.querySelector(".brand").setAttribute("aria-label", translations[language]["brand-home"]);
   document.querySelectorAll("[data-i18n]").forEach((element) => {
@@ -115,7 +118,7 @@ function applyLanguage() {
     button.setAttribute("aria-pressed", String(selected));
   });
   updateThemeLabel();
-  savePreference("subnet-studio-language", language);
+  savePreference("network-calculator-language", language);
 }
 
 function getPreferredTheme() {
@@ -180,7 +183,7 @@ function displayResult(result) {
   document.getElementById("broadcast-result").textContent = formatIPv4(result.broadcast);
   document.getElementById("host-min-result").textContent = formatIPv4(result.firstHost);
   document.getElementById("host-max-result").textContent = formatIPv4(result.lastHost);
-  document.getElementById("host-count-result").textContent = result.usableCount.toLocaleString(language === "fr" ? "fr-FR" : "uk-UA");
+  document.getElementById("host-count-result").textContent = result.usableCount.toLocaleString(language === "fr" ? "fr-FR" : "en-GB");
   document.getElementById("prefix-badge").textContent = `/${result.prefix}`;
 }
 
@@ -222,7 +225,7 @@ document.querySelectorAll(".language-button").forEach((button) => {
     if (errorKey) errorMessage.textContent = translations[language][errorKey];
     const count = document.getElementById("host-count-result");
     const numericCount = Number(count.textContent.replace(/[^\d]/g, ""));
-    if (Number.isFinite(numericCount)) count.textContent = numericCount.toLocaleString(language === "fr" ? "fr-FR" : "us-US");
+    if (Number.isFinite(numericCount)) count.textContent = numericCount.toLocaleString(language === "fr" ? "fr-FR" : "en-GB");
   });
 });
 

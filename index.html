@@ -16,23 +16,15 @@
     <div class="app-shell">
       <header class="topbar">
         <a class="brand" href="./" aria-label="Network Calculator home">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="5" r="2.25"></circle>
-              <circle cx="5" cy="18" r="2.25"></circle>
-              <circle cx="19" cy="18" r="2.25"></circle>
-              <path d="m10.9 7-4.8 8.7m7-8.7 4.8 8.7M7.4 18h9.2"></path>
-            </svg>
-          </span>
           <span>Network Calculator</span>
         </a>
         <div class="topbar-tools">
-          <nav class="language-switch" id="language-navigation" aria-label="Language">
+          <nav class="language-switch" id="language-navigation" aria-label="Language" data-active-language="en">
             <button type="button" class="language-button is-active" data-language="en" aria-pressed="true">EN</button>
             <button type="button" class="language-button" data-language="fr" aria-pressed="false">FR</button>
           </nav>
-          <button class="theme-button" id="theme-toggle" type="button">
-            <span class="theme-icon" aria-hidden="true">☾</span>
+          <button class="theme-button" id="theme-toggle" type="button" aria-pressed="false">
+            <span class="theme-switch-track" aria-hidden="true"></span>
             <span id="theme-label">Dark mode</span>
           </button>
         </div>
@@ -41,15 +33,16 @@
       <main class="main-content">
         <div class="breadcrumb"><span data-i18n="breadcrumb-parent">Your network</span><span class="breadcrumb-divider">/</span><strong data-i18n="breadcrumb-current">Calculator</strong></div>
 
+        <div class="workspace-grid">
         <section class="intro" aria-labelledby="page-title">
           <span class="eyebrow" data-i18n="eyebrow">A LITTLE CLARITY FOR YOUR NETWORK</span>
           <h1 id="page-title" data-i18n="title">Make sense of your <span>subnet.</span></h1>
           <p data-i18n="intro">Enter an IPv4 address and netmask. We’ll map out the network, broadcast, and usable host range for you.</p>
         </section>
 
+        <div class="calculator-column">
         <section class="calculator-card" aria-labelledby="form-title">
           <div class="section-heading">
-            <span class="section-icon" aria-hidden="true">⌁</span>
             <div>
               <span class="eyebrow" data-i18n="section-kicker">YOUR SUBNET DETAILS</span>
               <h2 id="form-title" data-i18n="form-title">Start with an address</h2>
@@ -77,7 +70,7 @@
             </div>
             <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
             <div class="form-actions">
-              <button class="button button-primary" type="submit"><span data-i18n="calculate">Calculate subnet</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <button class="button button-primary" type="submit"><span data-i18n="calculate">Calculate subnet</span></button>
               <button class="button button-quiet" id="example-button" type="button" data-i18n="example">Use example</button>
             </div>
           </form>
@@ -93,38 +86,35 @@
           </div>
           <div class="result-grid">
             <article class="result-card result-card-network">
-              <span class="result-icon" aria-hidden="true">⌘</span>
               <span class="result-label" data-i18n="network">Network address</span>
               <strong class="result-value" id="network-result">192.168.1.0</strong>
               <small data-i18n="network-note">The subnet identifier</small>
             </article>
             <article class="result-card result-card-broadcast">
-              <span class="result-icon" aria-hidden="true">↗</span>
               <span class="result-label" data-i18n="broadcast">Broadcast address</span>
               <strong class="result-value" id="broadcast-result">192.168.1.255</strong>
               <small data-i18n="broadcast-note">Reaches every host in the subnet</small>
             </article>
             <article class="result-card result-card-host">
-              <span class="result-icon" aria-hidden="true">↓</span>
               <span class="result-label" data-i18n="host-min">First usable host</span>
               <strong class="result-value" id="host-min-result">192.168.1.1</strong>
               <small data-i18n="host-min-note">Host range begins</small>
             </article>
             <article class="result-card result-card-host">
-              <span class="result-icon" aria-hidden="true">↑</span>
               <span class="result-label" data-i18n="host-max">Last usable host</span>
               <strong class="result-value" id="host-max-result">192.168.1.254</strong>
               <small data-i18n="host-max-note">Host range ends</small>
             </article>
             <article class="result-card result-card-count">
-              <span class="result-icon" aria-hidden="true">✳</span>
               <span class="result-label" data-i18n="host-count">Usable host addresses</span>
               <strong class="result-value" id="host-count-result">254</strong>
               <small data-i18n="host-count-note">Assignable addresses, including the entered IP</small>
             </article>
           </div>
-          <p class="results-footnote"><span aria-hidden="true">✦</span><span data-i18n="footnote">For /31, both addresses are usable on point-to-point links. A /32 contains one address.</span></p>
+          <p class="results-footnote"><span data-i18n="footnote">For /31, both addresses are usable on point-to-point links. A /32 contains one address.</span></p>
         </section>
+        </div>
+        </div>
 
         <footer class="page-footer"><span data-i18n="footer">Small tool, clearer networks.</span><span>IPv4 · CIDR</span></footer>
       </main>

@@ -10,7 +10,7 @@ const translations = {
     "section-kicker": "YOUR SUBNET DETAILS",
     "form-title": "Start with an address",
     "ip-label": "IPv4 address",
-    "ip-hint": "The address you want to calculate from.",
+    "ip-hint": "The ip address you want to calculate from (e.g., 192.168.1.10).",
     "mask-label": "Subnet mask",
     "mask-hint": "Enter a dotted mask or prefix length (0–32).",
     calculate: "Calculate subnet",
@@ -80,7 +80,6 @@ const netmaskInput = document.getElementById("netmask");
 const errorMessage = document.getElementById("form-error");
 const themeToggle = document.getElementById("theme-toggle");
 const themeLabel = document.getElementById("theme-label");
-const themeIcon = document.querySelector(".theme-icon");
 const languageNavigation = document.getElementById("language-navigation");
 let language = readPreference("network-calculator-language", readPreference("subnet-studio-language", "en"));
 let theme = readPreference("subnet-studio-theme", getPreferredTheme());
@@ -107,6 +106,7 @@ function applyLanguage() {
   root.lang = language === "en" ? "en-GB" : "fr";
   document.title = language === "en" ? "Network Calculator — IPv4 subnet calculator" : "Network Calculator — calculateur de sous-réseau IPv4";
   languageNavigation.setAttribute("aria-label", translations[language]["language-label"]);
+  languageNavigation.dataset.activeLanguage = language;
   document.querySelector(".brand").setAttribute("aria-label", translations[language]["brand-home"]);
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     const key = element.dataset.i18n;
@@ -127,14 +127,14 @@ function getPreferredTheme() {
 
 function applyTheme() {
   root.dataset.theme = theme;
-  themeToggle.setAttribute("aria-label", translations[language][theme === "light" ? "theme-dark" : "theme-light"]);
-  themeIcon.textContent = theme === "light" ? "☾" : "☀";
+  themeToggle.setAttribute("aria-label", translations[language][theme === "dark" ? "theme-dark" : "theme-light"]);
+  themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
   updateThemeLabel();
   savePreference("subnet-studio-theme", theme);
 }
 
 function updateThemeLabel() {
-  themeLabel.textContent = translations[language][theme === "light" ? "theme-dark" : "theme-light"];
+  themeLabel.textContent = translations[language][theme === "dark" ? "theme-dark" : "theme-light"];
 }
 
 function parseIPv4(value) {

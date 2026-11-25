@@ -222,7 +222,7 @@ document.querySelectorAll(".language-button").forEach((button) => {
     if (errorKey) errorMessage.textContent = translations[language][errorKey];
     const count = document.getElementById("host-count-result");
     const numericCount = Number(count.textContent.replace(/[^\d]/g, ""));
-    if (Number.isFinite(numericCount)) count.textContent = numericCount.toLocaleString(language === "fr" ? "fr-FR" : "uk-UA");
+    if (Number.isFinite(numericCount)) count.textContent = numericCount.toLocaleString(language === "fr" ? "fr-FR" : "us-US");
   });
 });
 

@@ -149,6 +149,25 @@ function formatIPv4(value) {
   return [24, 16, 8, 0].map((shift) => Math.floor(value / (2 ** shift)) % 256).join(".");
 }
 
+function formatMaskedBinary(value, prefix) {
+  const octets = [24, 16, 8, 0].map((shift) => {
+    const octet = Math.floor(value / (2 ** shift)) % 256;
+    return octet.toString(2).padStart(8, "0");
+  });
+
+  let bitIndex = 0;
+  return octets.map((octet) => {
+    const networkLength = Math.max(0, Math.min(8, prefix - bitIndex));
+    bitIndex += 8;
+    const networkBits = octet.slice(0, networkLength);
+    const hostBits = octet.slice(networkLength);
+    return [
+      networkBits ? `<span class="binary-network">${networkBits}</span>` : "",
+      hostBits ? `<span class="binary-host">${hostBits}</span>` : ""
+    ].join("");
+  }).join(" ");
+}
+
 function parseNetmask(value) {
   const trimmed = value.trim();
   if (/^\d{1,2}$/.test(trimmed)) {
@@ -183,6 +202,10 @@ function displayResult(result) {
   document.getElementById("broadcast-result").textContent = formatIPv4(result.broadcast);
   document.getElementById("host-min-result").textContent = formatIPv4(result.firstHost);
   document.getElementById("host-max-result").textContent = formatIPv4(result.lastHost);
+  document.getElementById("network-bin-result").innerHTML = formatMaskedBinary(result.network, result.prefix);
+  document.getElementById("broadcast-bin-result").innerHTML = formatMaskedBinary(result.broadcast, result.prefix);
+  document.getElementById("host-min-bin-result").innerHTML = formatMaskedBinary(result.firstHost, result.prefix);
+  document.getElementById("host-max-bin-result").innerHTML = formatMaskedBinary(result.lastHost, result.prefix);
   document.getElementById("host-count-result").textContent = result.usableCount.toLocaleString(language === "fr" ? "fr-FR" : "en-GB");
   document.getElementById("prefix-badge").textContent = `/${result.prefix}`;
 }

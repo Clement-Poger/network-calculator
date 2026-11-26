@@ -31,11 +31,9 @@
       </header>
 
       <main class="main-content">
-        <div class="breadcrumb"><span data-i18n="breadcrumb-parent">Your network</span><span class="breadcrumb-divider">/</span><strong data-i18n="breadcrumb-current">Calculator</strong></div>
-
+        
         <div class="workspace-grid">
         <section class="intro" aria-labelledby="page-title">
-          <span class="eyebrow" data-i18n="eyebrow">A LITTLE CLARITY FOR YOUR NETWORK</span>
           <h1 id="page-title" data-i18n="title">Make sense of your <span>subnet.</span></h1>
           <p data-i18n="intro">Enter an IPv4 address and netmask. We’ll map out the network, broadcast, and usable host range for you.</p>
         </section>
@@ -79,7 +77,6 @@
         <section class="results-section" id="results" aria-labelledby="results-title" aria-live="polite">
           <div class="results-heading">
             <div>
-              <span class="eyebrow" data-i18n="results-kicker">YOUR NETWORK, MAPPED OUT</span>
               <h2 id="results-title" data-i18n="results-title">Here’s your subnet<span class="heading-period">.</span></h2>
             </div>
             <span class="prefix-badge" id="prefix-badge">/24</span>
@@ -88,26 +85,30 @@
             <article class="result-card result-card-network">
               <span class="result-label" data-i18n="network">Network address</span>
               <strong class="result-value" id="network-result">192.168.1.0</strong>
+              <span class="result-value" id="network-bin-result">11000000 10101000 00000001 00000000</span>
               <small data-i18n="network-note">The subnet identifier</small>
             </article>
             <article class="result-card result-card-broadcast">
               <span class="result-label" data-i18n="broadcast">Broadcast address</span>
               <strong class="result-value" id="broadcast-result">192.168.1.255</strong>
+              <span class="result-value" id="broadcast-bin-result">11000000 10101000 00000001 11111111</span>
               <small data-i18n="broadcast-note">Reaches every host in the subnet</small>
             </article>
             <article class="result-card result-card-host">
               <span class="result-label" data-i18n="host-min">First usable host</span>
               <strong class="result-value" id="host-min-result">192.168.1.1</strong>
+              <span class="result-value" id="host-min-bin-result">11000000 10101000 00000001 00000001</span>
               <small data-i18n="host-min-note">Host range begins</small>
             </article>
             <article class="result-card result-card-host">
               <span class="result-label" data-i18n="host-max">Last usable host</span>
               <strong class="result-value" id="host-max-result">192.168.1.254</strong>
+              <span class="result-value" id="host-max-bin-result">11000000 10101000 00000001 11111110</span>
               <small data-i18n="host-max-note">Host range ends</small>
             </article>
             <article class="result-card result-card-count">
               <span class="result-label" data-i18n="host-count">Usable host addresses</span>
-              <strong class="result-value" id="host-count-result">254</strong>
+              <span class="result-value" id="host-count-result">254</span>
               <small data-i18n="host-count-note">Assignable addresses, including the entered IP</small>
             </article>
           </div>
